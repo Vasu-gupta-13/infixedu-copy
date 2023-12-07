@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "102375358842",
+    "project_id": "infixedu-copy",
+    "storage_bucket": "infixedu-copy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:102375358842:android:c6f722a3ffdff4c0b616c3",
+        "android_client_info": {
+          "package_name": "com.example.infixedu_copy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhUt1yDpVuYwNmd9ipmD-QapwKuuddWM0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
