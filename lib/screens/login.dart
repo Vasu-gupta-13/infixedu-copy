@@ -23,9 +23,10 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  String? user;
+  late String user;
   String? email;
-  Future<String>? futureEmail;
+  int active = 0;
+  late Future<String> futureEmail;
   String password = '123456';
   bool isResponse = false;
   bool obscurePass = true;
@@ -78,6 +79,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: ElevatedButton(
                           onPressed: () {
                             user = 'student';
+                            setState(() {
+                              active = 0;
+                            });
                             futureEmail = getEmail(user!);
                             futureEmail!.then((value) {
                               setState(() {
@@ -88,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             });
                           },
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.purpleAccent,
+                              backgroundColor:active == 0? Colors.purpleAccent : Colors.purple,
                               shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(8.0),
@@ -108,9 +112,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: ElevatedButton(
                           onPressed: () {
                             setState(() {
+                                active = 1;
                               user = 'teacher';
                               futureEmail = getEmail(user!);
                               futureEmail!.then((value) {
+                                print('teacher val: $value');
                                 setState(() {
                                   email = value;
                                   emailController.text = email!;
@@ -120,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             });
                           },
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.purpleAccent,
+                              backgroundColor: active == 1? Colors.purpleAccent : Colors.purple,
                               shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(0.0),
@@ -136,6 +142,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {
+                            setState(() {
+                              active = 2;
+                            });
                             user = 'parent';
                             futureEmail = getEmail(user!);
                             futureEmail!.then((value) {
@@ -147,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             });
                           },
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.purpleAccent,
+                              backgroundColor: active == 2? Colors.purpleAccent : Colors.purple,
                               shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
                                   topRight: Radius.circular(8.0),
@@ -302,12 +311,13 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<String> getEmail(String user) async {
+    print('getEmail');
     final response = await http.get(Uri.parse(InfixApi.getEmail));
     debugPrint(InfixApi.getEmail);
     debugPrint(response.body);
     var jsonData = json.decode(response.body);
 
-    //print(InfixApi.getDemoEmail(schoolId));
+ //   print(InfixApi.getDemoEmail(schoolId));
 
     return jsonData['data'][user]['email'];
   }

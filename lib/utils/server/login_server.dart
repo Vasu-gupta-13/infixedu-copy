@@ -85,15 +85,17 @@ class Login {
           if (rule == 2 || rule == "2") {
             saveIntValue('studentId', int.parse(studentId.toString()));
           }
+          /// Problem in Login
           final SystemController _systemController =
           Get.put(SystemController());
           await _systemController.getSystemSettings();
+          print('Got system Settings');
           AppFunction.getFunctions(context, rule.toString());
         }
         return message;
       }
     } catch (e, t) {
-      debugPrint(e as String?);
+      debugPrint("$e");
       debugPrint(t.toString());
     }
     return message;

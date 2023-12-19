@@ -34,10 +34,10 @@ class Utils extends GetxController {
     return prefs.getBool(key) ?? false;
   }
 
-  static Future<String?> getStringValue(String key) async {
+  static Future<String> getStringValue(String key) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     // print(prefs.getString(key));
-    return prefs.getString(key);
+    return prefs.getString(key) ?? '';
   }
 
   static Future<int?> getIntValue(String key) async {

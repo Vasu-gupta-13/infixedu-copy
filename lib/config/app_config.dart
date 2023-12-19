@@ -1,6 +1,6 @@
 class AppConfig {
   static String domainName =
-      'https://spondan.com/spn23/chat'; //** Replace with your domain name
+      'https://demo.appvala.com/sms'; //** Replace with your domain name
 
   static String appName = "InfixEdu";
 

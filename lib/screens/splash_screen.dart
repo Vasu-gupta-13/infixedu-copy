@@ -7,6 +7,7 @@ import 'package:infixedu_copy/config/app_config.dart';
 import 'package:infixedu_copy/controller/system_controller.dart';
 import 'package:infixedu_copy/screens/login.dart';
 import 'package:infixedu_copy/student.dart';
+import 'package:infixedu_copy/utils/function_data.dart';
 import 'package:infixedu_copy/utils/utils.dart';
 // Project imports:
 
@@ -38,12 +39,12 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
     Future.delayed(const Duration(seconds: 3), () {
       getBooleanValue('isLogged').then((value) {
         if (value) {
+          print('val : $value');
           final SystemController _systemController =
           Get.put(SystemController());
           _systemController.getSystemSettings();
           Utils.getStringValue('rule').then((rule) {
-            Navigator.of(context, rootNavigator: true)
-                .pushAndRemoveUntil(MaterialPageRoute(builder: (builder)=> StudentHome()), (Route<dynamic> route) => false);
+            AppFunction.getFunctions(context, rule!);
           });
         } else {
           if (mounted) {

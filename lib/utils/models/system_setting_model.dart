@@ -18,7 +18,7 @@ class SystemSettings {
 
   bool? success;
   SystemData? data;
-  dynamic? message;
+  dynamic message;
 
   factory SystemSettings.fromJson(Map<String, dynamic> json) => SystemSettings(
     success: json["success"],
@@ -89,23 +89,23 @@ class SystemData {
   String currencyCode;
   String copyrightText;
   dynamic schoolId;
-  bool lesson;
-  bool chat;
+  int lesson;
+  int chat;
   dynamic feesCollection;
-  bool razorPay;
-  bool saas;
-  bool zoom;
-  bool bbb;
+  int razorPay;
+  int saas;
+  int zoom;
+  int bbb;
   dynamic videoWatch;
-  bool jitsi;
-  bool onlineExam;
-  bool xenditPayment;
-  bool wallet;
+  int jitsi;
+  int onlineExam;
+  int xenditPayment;
+  int wallet;
   dynamic university;
   dynamic feesStatus;
-  bool khaltiPayment;
-  bool appSlider;
-  bool raudhahpay;
+  int khaltiPayment;
+  int appSlider;
+  int raudhahpay;
   dynamic preloaderStatus;
   String preloaderImage;
   bool fees;

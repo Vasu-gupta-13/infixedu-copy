@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:infixedu_copy/screens/dashboard.dart';
 import 'package:infixedu_copy/screens/home.dart';
+import 'package:infixedu_copy/screens/teacher/students/student_search.dart';
+import 'package:infixedu_copy/utils/models/system_setting_model.dart';
 import 'package:infixedu_copy/utils/widgets/scale_route.dart';
 
 class AppFunction {
@@ -354,6 +356,83 @@ class AppFunction {
             .pushAndRemoveUntil(route, (Route<dynamic> route) => false);
         break;
 
+    }
+  }
+  static void getSaasAdminDashboardPage(BuildContext context, String title,
+      String uid, SystemSettings systemSettings) {
+    switch (title) {
+      case 'Students':
+        Navigator.push(context, ScaleRoute(page: StudentSearch()));
+        break;
+      case 'Fees':
+        if (systemSettings.data!.feesStatus == 0) {
+          debugPrint('FeesStatus == 0 ');
+          // Navigator.push(context,
+          //     ScaleRoute(page: AdminFeesHome(adminFees, adminFeeIcons)));
+        } else {
+          debugPrint('Fees');
+          // Navigator.push(context,
+          //     ScaleRoute(page: AdminFeesHome(adminFeesNew, adminFeeIconsNew)));
+        }
+        break;
+      case 'Library':
+        debugPrint('Library');
+        // Navigator.push(
+        //     context,
+        //     ScaleRoute(
+        //         page: AdminLibraryHome(adminLibrary, adminLibraryIcons)));
+        break;
+      case 'Attendance':
+        debugPrint('Attendance');
+        // Navigator.push(
+        //     context,
+        //     ScaleRoute(
+        //         page: AttendanceHomeScreen(attendance, attendanceIcons)));
+        break;
+      case 'Content':
+        debugPrint('Content');
+        // Navigator.push(context,
+        //     ScaleRoute(page: ContentHomeScreen(contents, contentsIcons)));
+        break;
+      case 'Transport':
+        debugPrint('Transport');
+        // Navigator.push(
+        //     context,
+        //     ScaleRoute(
+        //         page: AdminTransportHome(adminTransport, adminTransportIcons)));
+        break;
+      case 'Staff':
+        debugPrint('Staff');
+        // Navigator.push(context, ScaleRoute(page: const AdminStaffList()));
+        break;
+      case 'Dormitory':
+        debugPrint('Dormitory');
+        // Navigator.push(
+        //     context,
+        //     ScaleRoute(
+        //         page: AdminDormitoryHome(adminDormitory, adminDormitoryIcons)));
+        break;
+      case 'Notice':
+        debugPrint('Leave');
+        // Navigator.push(context, ScaleRoute(page: const StaffNoticeScreen()));
+        break;
+      case 'Leave':
+        debugPrint('Leave');
+        // Navigator.push(context, ScaleRoute(page:  LeaveAdminHomeScreen()));
+        break;
+      case 'Settings':
+        debugPrint('Settings');
+        // Navigator.push(context, ScaleRoute(page:  SettingScreen()));
+        break;
+
+      case 'Class':
+        debugPrint('Class');
+        // pushNewScreen(
+        //   context,
+        //   screen: VirtualClassMain(),
+        //   withNavBar: false,
+        // );
+        break;
     }
   }
 }

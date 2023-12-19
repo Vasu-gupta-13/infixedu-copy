@@ -6,9 +6,11 @@ import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:infixedu_copy/config/app_config.dart';
+import 'package:infixedu_copy/firebase_options.dart';
 import 'package:infixedu_copy/screens/splash_screen.dart';
 import 'package:infixedu_copy/utils/errors.dart';
 import 'package:infixedu_copy/utils/themes.dart';
+import 'package:infixedu_copy/utils/utils.dart';
 import 'package:infixedu_copy/utils/widgets/cc.dart';
 
 
@@ -23,21 +25,23 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 //  final LanguageController languageController = Get.put(LanguageController());
   final CustomController controller = Get.put(CustomController());
-  bool isRTL = true;
+  late bool isRTL;
 
   @override
   void initState() {
     super.initState();
-
-    // Utils.getIntValue('locale').then((value) {
-    //   setState(() {
-    //     isRTL = value == 0 ? true : false;
-    //     //Utils.showToast('$isRTL');
-    //   });
-    // });
+    Utils.getIntValue('locale').then((value) {
+      print(value);
+      setState(() {
+        isRTL = value == null ? true : false;
+        //Utils.showToast('$isRTL');
+      });
+    });
   }
 
   @override
@@ -47,6 +51,7 @@ class _MainPageState extends State<MainPage> {
           designSize: const Size(360, 690),
           builder: (_, child) {
             return Obx(() {
+              print('state: ${controller.isLoading.value}');
               if (controller.isLoading.value) {
                 return MaterialApp(
                   builder: EasyLoading.init(),
@@ -58,7 +63,8 @@ class _MainPageState extends State<MainPage> {
                   ),
                 );
               } else {
-                if (controller.connected.value) {
+                print('state2: ${controller.connected.value}');
+                if (controller.connected.value == true) {
                   return isRTL
                       ? GetMaterialApp(
                     title: AppConfig.appName,
@@ -69,6 +75,7 @@ class _MainPageState extends State<MainPage> {
                         future: _initialization,
                         builder: (context, snapshot) {
                           if (snapshot.hasError) {
+                            print('error');
                             return Scaffold(
                               body: Center(
                                 child: Text(
@@ -79,6 +86,7 @@ class _MainPageState extends State<MainPage> {
                           }
                           if (snapshot.connectionState ==
                               ConnectionState.done) {
+                            print('connected');
                             return const Scaffold(
                               body: Splash(),
                             );
@@ -90,7 +98,15 @@ class _MainPageState extends State<MainPage> {
                     child: Directionality(
                       textDirection: TextDirection.ltr,
                       child: Center(
-                        child: CupertinoActivityIndicator(),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CupertinoActivityIndicator(),
+                            Text('loading...')
+                          ],
+                        ),
+
                       ),
                     ),
                   );
