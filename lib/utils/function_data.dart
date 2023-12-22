@@ -1,5 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:infixedu_copy/screens/dashboard.dart';
+import 'package:infixedu_copy/screens/fees/fees__admin/admin_fee_list.dart';
+import 'package:infixedu_copy/screens/fees/fees__admin/admin_fee_home.dart';
+import 'package:infixedu_copy/screens/fees/fees__admin/admin_fee_type.dart';
+import 'package:infixedu_copy/screens/fees/fees__admin/fees_admin_new/fee_bank_payment.dart';
+import 'package:infixedu_copy/screens/fees/fees__admin/fees_admin_new/fee_group.dart';
+import 'package:infixedu_copy/screens/fees/fees__admin/fees_admin_new/fee_invoice.dart';
+import 'package:infixedu_copy/screens/fees/fees__admin/fees_admin_new/fee_type.dart';
+import 'package:infixedu_copy/screens/fees/fees__admin/fees_admin_new/fee_waiver_report.dart';
+import 'package:infixedu_copy/screens/fees/fees__admin/report/fee_balance_report.dart';
+import 'package:infixedu_copy/screens/fees/fees__admin/report/fee_dues_report.dart';
+import 'package:infixedu_copy/screens/fees/fees__admin/report/fee_fine_report.dart';
+import 'package:infixedu_copy/screens/fees/fees__admin/report/fee_payment_report.dart';
+import 'package:infixedu_copy/screens/fees/fees__admin/report/report_main.dart';
 import 'package:infixedu_copy/screens/home.dart';
 import 'package:infixedu_copy/screens/teacher/students/student_search.dart';
 import 'package:infixedu_copy/utils/models/system_setting_model.dart';
@@ -432,6 +445,128 @@ class AppFunction {
         //   screen: VirtualClassMain(),
         //   withNavBar: false,
         // );
+        break;
+    }
+  }
+  static void getAdminDashboardPage(BuildContext context, String title,
+      String uid, SystemSettings systemSettings) {
+    switch (title) {
+      case 'Students':
+        Navigator.push(context, ScaleRoute(page: StudentSearch()));
+        break;
+      case 'Fees':
+        print(systemSettings.data);
+        if (systemSettings.data!.feesStatus == 0) {
+          Navigator.push(context,
+              ScaleRoute(page: AdminFeesHome(titles: adminFees, images: adminFeeIcons)));
+        } else {
+          Navigator.push(context,
+              ScaleRoute(page: AdminFeesHome(titles: adminFeesNew, images: adminFeeIconsNew)));
+        }
+        break;
+      // case 'Library':
+      //   Navigator.push(
+      //       context,
+      //       ScaleRoute(
+      //           page: AdminLibraryHome(adminLibrary, adminLibraryIcons)));
+      //   break;
+      // case 'Attendance':
+      //   Navigator.push(
+      //       context,
+      //       ScaleRoute(
+      //           page: AdminAttendanceHomeScreen(attendance, attendanceIcons)));
+      //   break;
+      // case 'Transport':
+      //   Navigator.push(
+      //       context,
+      //       ScaleRoute(
+      //           page: AdminTransportHome(adminTransport, adminTransportIcons)));
+      //   break;
+      // case 'Staff':
+      //   Navigator.push(context, ScaleRoute(page: const AdminStaffList()));
+      //   break;
+      // case 'Content':
+      //   Navigator.push(context,
+      //       ScaleRoute(page: ContentHomeScreen(contents, contentsIcons)));
+      //   break;
+      // case 'Notice':
+      //   Navigator.push(context, ScaleRoute(page: const StaffNoticeScreen()));
+      //   break;
+      // case 'Dormitory':
+      //   Navigator.push(
+      //       context,
+      //       ScaleRoute(
+      //           page: AdminDormitoryHome(adminDormitory, adminDormitoryIcons)));
+      //   break;
+      // case 'Leave':
+      //   Navigator.push(context, ScaleRoute(page: const LeaveAdminHomeScreen()));
+      //   break;
+      // case 'Settings':
+      //   Navigator.push(context, ScaleRoute(page: const SettingScreen()));
+      //   break;
+      // case 'Class':
+      //   pushNewScreen(
+      //     context,
+      //     screen: VirtualClassMain(),
+      //     withNavBar: false,
+      //   );
+      //   break;
+    }
+  }
+  static void getAdminFeePage(BuildContext context, String title) {
+    print(title);
+    switch (title) {
+      case 'Add Fee':
+        Navigator.push(context, ScaleRoute(page:  AddFeeType()));
+        break;
+      case 'Fee List':
+        Navigator.push(context, ScaleRoute(page:  AdminFeeListView()));
+        break;
+    }
+  }
+
+  static void getAdminFeePageNew(BuildContext context, String title) {
+    switch (title) {
+      case 'Fee Group':
+        Navigator.push(context, ScaleRoute(page:  const FeesGroupScreen()));
+        break;
+      case 'Fee Type':
+        Navigator.push(context, ScaleRoute(page:  const FeesTypeScreen()));
+        break;
+      case 'Fee Invoice':
+        Navigator.push(context, ScaleRoute(page:  FeesInvoiceScreen()));
+        break;
+      case 'Bank Payment':
+        Navigator.push(context, ScaleRoute(page:  FeeBankPaymentSearch()));
+        break;
+      case 'Reports':
+        print('reports');
+        Navigator.push(
+            context,
+            ScaleRoute(
+                page: AdminFeesReportMain(adminFeesReport, adminFeeIconsNew)));
+        break;
+    }
+  }
+  static void getAdminFeesReportPage(BuildContext context, String title) {
+    switch (title) {
+      case 'Due Report':
+        Navigator.push(context, ScaleRoute(page: const AdminFeesDueReport()));
+        break;
+      case 'Fine Report':
+        Navigator.push(context, ScaleRoute(page: const AdminFeesFineReport()));
+        break;
+      case 'Payment Report':
+        Navigator.push(
+            context, ScaleRoute(page: const AdminFeesPaymentReport()));
+        break;
+      case 'Balance Report':
+        Navigator.push(
+            context, ScaleRoute(page: const AdminFeesBalanceReport()));
+        break;
+      case 'Waiver Report':
+        Navigator.push(
+            context, ScaleRoute(page: const AdminFeesWaiverReport()));
         break;
     }
   }

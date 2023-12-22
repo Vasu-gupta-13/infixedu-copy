@@ -402,21 +402,21 @@ class _HomeState extends State<Home> {
                           // );
                         } else if (_rule == '1' || _rule == '5') {
                           if (isAdministrator == 'yes') {
-                            print('admin: $_rule');
-                            // AppFunction.getSaasAdminDashboardPage(
-                            //   context,
-                            //   _titles[index],
-                            //   _id,
-                            //   _systemController.systemSettings.value,
-                            // );
+                            print('admin: $_rule 1');
+                            AppFunction.getSaasAdminDashboardPage(
+                              context,
+                              widget.title[index],
+                              _id,
+                              _systemController.systemSettings.value,
+                            );
                           } else {
-                            print('admin: $_rule');
-                            // AppFunction.getAdminDashboardPage(
-                            //   context,
-                            //   _titles[index],
-                            //   _id,
-                            //   _systemController.systemSettings.value,
-                            // );
+                            print('admin: $_rule 2');
+                            AppFunction.getAdminDashboardPage(
+                              context,
+                              widget.title[index],
+                              _id,
+                              _systemController.systemSettings.value,
+                            );
                           }
                         } else if (_rule == '9') {
                           print('driver: $_rule');

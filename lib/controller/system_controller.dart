@@ -28,7 +28,7 @@ class SystemController extends GetxController {
         if (response.statusCode == 200) {
           final studentRecords = systemSettingsFromJson(response.body);
           systemSettings.value = studentRecords;
-
+          print(systemSettings.value);
           isLoading(false);
         } else {
           isLoading(false);

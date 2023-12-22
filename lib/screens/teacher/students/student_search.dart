@@ -26,7 +26,7 @@ class StudentSearch extends StatefulWidget {
 
   @override
   // ignore: no_logic_in_create_state
-  _StudentSearchState createState() => _StudentSearchState(status: status!);
+  _StudentSearchState createState() => _StudentSearchState(status: 'attendance');
 }
 
 class _StudentSearchState extends State<StudentSearch> {
@@ -40,7 +40,7 @@ class _StudentSearchState extends State<StudentSearch> {
   Future? classes;
   Future<SectionList>? sections;
   String? url;
-  String status;
+  String status = 'attendance';
   String? _token;
   String? rule;
 
@@ -53,7 +53,6 @@ class _StudentSearchState extends State<StudentSearch> {
       setState(() {
         _token = value;
       });
-
       Utils.getStringValue('rule').then((ruleValue) {
         setState(() {
           rule = ruleValue;
@@ -61,12 +60,14 @@ class _StudentSearchState extends State<StudentSearch> {
             setState(() {
               _id = value;
               classes = getAllClass(int.parse(_id!));
+             // print(classes);
               classes!.then((value) {
+              //  print(value.classes[0].name);
                 _selectedClass = value.classes[0].name;
                 classId = value.classes[0].id;
                 sections = getAllSection(int.parse(_id!), classId);
                 sections!.then((sectionValue) {
-                  _selectedSection = sectionValue.sections[0].name;
+                 _selectedSection = sectionValue.sections[0].name;
                   sectionId = sectionValue.sections[0].id;
                 });
               });
@@ -283,6 +284,7 @@ class _StudentSearchState extends State<StudentSearch> {
   }
 
   Widget getSectionDropdown(List<Section> sectionlist) {
+    print(sectionlist);
     return Container(
       width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -337,6 +339,7 @@ class _StudentSearchState extends State<StudentSearch> {
         headers: Utils.setHeader(_token.toString()));
     if (response.statusCode == 200) {
       var jsonData = jsonDecode(response.body);
+      //print('json : $jsonData}');
       if (rule == "1" || rule == "5") {
         return AdminClassList.fromJson(jsonData['data']['teacher_classes']);
       } else {
