@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:infixedu_copy/screens/admin/library/add_library_book.dart';
+import 'package:infixedu_copy/screens/admin/library/admin_add_member.dart';
+import 'package:infixedu_copy/screens/admin/library/admin_library_screen.dart';
 import 'package:infixedu_copy/screens/dashboard.dart';
 import 'package:infixedu_copy/screens/fees/fees__admin/admin_fee_list.dart';
 import 'package:infixedu_copy/screens/fees/fees__admin/admin_fee_home.dart';
@@ -464,18 +467,18 @@ class AppFunction {
               ScaleRoute(page: AdminFeesHome(titles: adminFeesNew, images: adminFeeIconsNew)));
         }
         break;
-      // case 'Library':
-      //   Navigator.push(
-      //       context,
-      //       ScaleRoute(
-      //           page: AdminLibraryHome(adminLibrary, adminLibraryIcons)));
-      //   break;
-      // case 'Attendance':
-      //   Navigator.push(
-      //       context,
-      //       ScaleRoute(
-      //           page: AdminAttendanceHomeScreen(attendance, attendanceIcons)));
-      //   break;
+      case 'Library':
+        Navigator.push(
+            context,
+            ScaleRoute(
+                page: AdminLibraryHome(titles: adminLibrary,images: adminLibraryIcons)));
+        break;
+      case 'Attendance':
+        Navigator.push(
+            context,
+            ScaleRoute(
+                page: AdminAttendanceHomeScreen(attendance, attendanceIcons)));
+        break;
       // case 'Transport':
       //   Navigator.push(
       //       context,
@@ -567,6 +570,48 @@ class AppFunction {
       case 'Waiver Report':
         Navigator.push(
             context, ScaleRoute(page: const AdminFeesWaiverReport()));
+        break;
+    }
+  }
+  static void getAdminLibraryPage(BuildContext context, String title) {
+    switch (title) {
+      case 'Add Book':
+        Navigator.push(context, ScaleRoute(page:  AddAdminBook()));
+        break;
+      case 'Add Member':
+        Navigator.push(context, ScaleRoute(page: const AddMember()));
+        break;
+      case 'Book List':
+      //  Navigator.push(context, ScaleRoute(page: const BookListScreen()));
+        break;
+    }
+  }
+  static void getAdminAttendanceDashboardPage(
+      BuildContext context, String title) {
+    switch (title) {
+      case 'Class Atten':
+        Navigator.push(
+            context, ScaleRoute(page: const StudentAttendanceHome()));
+        break;
+      case 'Subject Atten':
+        Navigator.push(
+            context, ScaleRoute(page: const StudentSubjectAttendanceHome()));
+        break;
+      case 'Search Atten':
+        Navigator.push(
+            context,
+            ScaleRoute(
+                page: StudentSearch(
+                  status: 'attendance',
+                )));
+        break;
+      case 'Search Sub Atten':
+        Navigator.push(
+            context,
+            ScaleRoute(
+                page: SubjectStudentSearch(
+                  status: 'attendance',
+                )));
         break;
     }
   }
